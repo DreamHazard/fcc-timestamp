@@ -13,24 +13,24 @@ const port = process.env.PORT
 
 //return JSON via get
 app.get('/:date', function(req, res, next){
-  
+
   //JSON Schema for natural date
   var dateSchema = {
     year: 'numeric',
     month: 'long',
     day: 'numeric'
   };
-  
+
   //get date param from request
   var dateRaw = req.params.date;
-  
+
   //check dateRaw to determine if is NaN
   if(isNaN(dateRaw)){
     //convert raw date to Natural
     var dateNat = new Date(dateRaw);
     if(dateNat == "Invalid Date"){
-      dateNat == null;
-      dateUnix == null;
+      dateNat = null;
+      dateUnix = null;
     } else {
       dateNat = dateNat.toLocaleDateString('en-GB', dateSchema);
 
@@ -43,7 +43,7 @@ app.get('/:date', function(req, res, next){
     var dateNat = new Date(dateUnix*1000);
     dateNat = dateNat.toLocaleDateString('en-GB', dateSchema);
   }
-  
+
   res.json({unix: dateUnix, natural: dateNat});
 });
 
